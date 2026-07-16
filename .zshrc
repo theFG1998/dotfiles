@@ -1,3 +1,6 @@
+# XDG base directories
+export XDG_CONFIG_HOME="$HOME/.config"
+
 # alias common commands
 alias zshrc="nvim ~/.zshrc"
 alias pip=pip3
@@ -19,6 +22,7 @@ alias gp="git push"
 alias gm="git commit"
 alias gs="git status"
 alias gw="git switch"
+alias lg="lazygit"
 
 # customize filetype colors using LS_COLORS
 source "$HOME/Scripts/lscolor.sh"
@@ -41,6 +45,8 @@ plugins=(colored-man-pages zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 # override oh-my-zsh default ls alias
+export EDITOR="nvim"
+export VISUAL="nvim"
 alias ls=lsd
 alias lh="lsd -ah"
 alias la="lsd -la"
