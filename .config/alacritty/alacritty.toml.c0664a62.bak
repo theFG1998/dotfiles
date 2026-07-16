@@ -1,0 +1,35 @@
+[cursor]
+unfocused_hollow = true
+
+[cursor.style]
+blinking = "On"
+shape = "Beam"
+
+[env]
+TERM = "alacritty"
+
+[font]
+size = 16.0
+
+[font.normal]
+family = "JetBrainsMonoNL Nerd Font Mono"
+style = "Medium"
+
+[font.offset]
+x = 1
+y = 1
+
+[[keyboard.bindings]]
+action = "CreateNewWindow"
+key = "N"
+mods = "Command"
+
+[window]
+decorations = "buttonless"
+opacity = 0.9
+option_as_alt = "Both"
+title = "Alacritty"
+
+[window.padding]
+x = 0
+y = 0

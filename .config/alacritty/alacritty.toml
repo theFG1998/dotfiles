@@ -1,0 +1,47 @@
+[cursor]
+unfocused_hollow = true
+blink_timeout = 0
+
+[cursor.style]
+blinking = "On"
+shape = "Beam"
+
+[env]
+TERM = "alacritty"
+
+[font]
+size = 16.0
+
+[font.normal]
+family = "JetBrainsMonoNL Nerd Font Mono"
+style = "Medium"
+
+[font.offset]
+x = 1
+y = 1
+
+[[keyboard.bindings]]
+action = "CreateNewWindow"
+key = "N"
+mods = "Command"
+
+[[keyboard.bindings]]
+action = "ToggleFullscreen"
+key = "Return"
+mods = "Command|Shift"
+
+[window]
+decorations = "buttonless"
+dynamic_padding = false
+opacity = 0.9
+option_as_alt = "Both"
+title = "Alacritty"
+
+[window.padding]
+x = 0
+y = 0
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"
