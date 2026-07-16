@@ -1,0 +1,175 @@
+local keyset = vim.keymap.set
+
+-- ================  nvim-treesitter  ================ --
+
+
+-- ================  nvim-treesitter  ================ --
+-- ================  nvim-treesitter-textobjects  ================ --
+-- ================  nvim-treesitter-textsubjects  ================ --
+-- ================  nvim-surround  ================ --
+-- ================  hlargs.nvim  ================ --
+-- ================  telescope.nvim  ================ --
+
+-- ================  auto-save.nvim  ================ --
+-- require("auto-save").setup {}
+-- 
+-- -- ================  twilight.nvim  ================ --
+-- require("twilight").setup {}
+-- 
+-- -- ================  true-zen.nvim  ================ --
+-- vim.wo.foldmethod = 'manual'
+-- keyset('n', '<leader>zn', '<cmd>TZNarrow<cr>')
+-- keyset("v", '<leader>zn', ":'<,'>TZNarrow<CR>")
+-- keyset('n', '<leader>zf', '<cmd>TZFocus<cr>')
+-- keyset('n', '<leader>zm', '<cmd>TZMinimalist<cr>')
+-- keyset('n', '<leader>za', '<cmd>TZAtaraxis<cr>')
+-- 
+-- require("true-zen").setup {
+--   modes = {
+--     ataraxis = {
+--       padding = {
+--                   -- padding windows
+--         left = 52,
+--         right = 52,
+--         top = 0,
+--         bottom = 0,
+--       },
+--       minimum_writing_area = {
+--                                -- minimum size of main window
+--         width = 80,
+--         height = 44,
+--       },
+--     },
+--   },
+--   integrations = {
+--     tmux = false, -- hide tmux status bar in (minimalist, ataraxis)
+--     kitty = {
+--                   -- increment font size in Kitty. Note: you must set `allow_remote_control socket-only` and `listen_on unix:/tmp/kitty` in your personal config (ataraxis)
+--       enabled = false,
+--       font = "+3"
+--     },
+--     twilight = true, -- enable twilight (ataraxis)
+--     lualine = true   -- hide nvim-lualine (ataraxis)
+--   },
+-- }
+-- 
+-- -- ================  vim-bookmarks  ================ --
+-- vim.g.bookmark_sign = '📝'
+-- vim.g.bookmark_annotation_sign = '📝'
+-- vim.g.bookmark_display_annotation = 1
+-- vim.g.bookmark_show_toggle_warning = 0
+-- vim.g.bookmark_show_warning = 0
+-- vim.g.bookmark_auto_save_file = os.getenv('HOME') .. '/.local/share/nvim/plugged/vim-bookmarks/bookmarks/.vim-bookmarks'
+-- 
+-- -- ================  telescope-vim-bookmarks.nvim  ================ --
+-- local opt = { hide_filename = false, tail_path = true }
+-- keyset('n', 'ma', function() require('telescope').extensions.vim_bookmarks.all(opt) end)
+-- 
+-- -- ================  yanky.nvim  ================ --
+-- require("yanky").setup({
+--   -- your configuration comes here
+--   -- or leave it empty to use the default settings
+--   -- refer to the configuration section below
+--   highlight = {
+--     timer = 300,
+--   },
+-- })
+-- 
+-- keyset({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
+-- keyset({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
+-- keyset({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
+-- keyset({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
+-- keyset("n", "<C-n>", "<Plug>(YankyCycleForward)")
+-- keyset("n", "<C-p>", "<Plug>(YankyCycleBackward)")
+-- keyset("n", "]p", "<Plug>(YankyPutIndentAfterLinewise)")
+-- keyset("n", "[p", "<Plug>(YankyPutIndentBeforeLinewise)")
+-- keyset("n", "]P", "<Plug>(YankyPutIndentAfterLinewise)")
+-- keyset("n", "[P", "<Plug>(YankyPutIndentBeforeLinewise)")
+-- keyset("n", ">p", "<Plug>(YankyPutIndentAfterShiftRight)")
+-- keyset("n", "<p", "<Plug>(YankyPutIndentAfterShiftLeft)")
+-- keyset("n", ">P", "<Plug>(YankyPutIndentBeforeShiftRight)")
+-- keyset("n", "<P", "<Plug>(YankyPutIndentBeforeShiftLeft)")
+-- keyset("n", "=p", "<Plug>(YankyPutAfterFilter)")
+-- keyset("n", "=P", "<Plug>(YankyPutBeforeFilter)")
+-- 
+-- vim.cmd.highlight { 'link', 'YankyPut', 'PounceAccept' }
+-- vim.cmd.highlight { 'link', 'YankyYanked', 'PounceAccept' }
+-- 
+-- ================  nnn.nvim  ================ --
+-- local builtin = require("nnn").builtin
+-- local function open_in_vsplit(files)
+--   builtin.open_in_vsplit(files)
+--   api.nvim_create_autocmd('VimResized', {
+--     pattern = '*',
+--     callback = function() vim.cmd('horizontal wincmd =') end,
+--     once = true
+--   })
+-- end
+-- 
+-- local mappings = {
+--   { "<C-t>", builtin.open_in_tab },       -- open file(s) in tab
+--   { "<C-s>", builtin.open_in_split },     -- open file(s) in split
+--   { "<C-v>", open_in_vsplit },            -- open file(s) in vertical split
+--   { "<C-p>", builtin.open_in_preview },   -- open file in preview split keeping nnn focused
+--   { "<C-y>", builtin.copy_to_clipboard }, -- copy file(s) to clipboard
+--   { "<C-w>", builtin.cd_to_path },        -- cd to file directory
+--   { "<C-e>", builtin.populate_cmdline },  -- populate cmdline (:) with file(s)
+-- }
+-- 
+require("nnn").setup {
+  picker = {
+    -- cmd = "nnn -Pp"
+    cmd = "nnn"
+  },
+  mappings = mappings
+}
+
+keyset("n", "<leader>;", "<cmd>NnnPicker %:p:h<CR>")
+-- 
+-- -- ================  project.nvim  ================ --
+-- require("project_nvim").setup {}
+-- 
+-- -- ================  nvim-ts-autotag  ================ --
+-- require('nvim-ts-autotag').setup {}
+-- 
+-- -- ================  nvim-autopairs  ================ --
+-- require("nvim-autopairs").setup {}
+-- 
+-- -- ================  nvim-lastplace  ================ --
+-- require 'nvim-lastplace'.setup {}
+-- 
+-- -- ================  Comment.nvim  ================ --
+-- require('Comment').setup {
+--   pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+-- }
+-- 
+-- -- ================  FTerm.nvim  ================ --
+-- require 'FTerm'.setup {}
+-- keyset('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>')
+-- keyset('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+-- 
+-- local fterm = require("FTerm")
+-- 
+-- local fterm_new = fterm:new({
+--     ft = 'fterm_new', -- You can also override the default filetype, if you want
+--     cmd = "/bin/zsh",
+-- })
+-- 
+-- keyset({'n', 't'}, '<A-j>', function()
+--     fterm_new:toggle()
+-- end)
+-- 
+-- -- ================  nvim-colorizer.lua  ================ --
+-- require 'colorizer'.setup {
+--   'css',
+--   'less',
+--   'scss',
+--   html = {
+--     mode = 'foreground',
+--   }
+-- }
+-- 
+-- -- ================  emmet-vim  ================ --
+-- vim.g.user_emmet_leader_key = '<C-F>'
+-- vim.g.user_emmet_mode = 'in'
+-- vim.g.user_emmet_prev_key = '<C-F>p'
