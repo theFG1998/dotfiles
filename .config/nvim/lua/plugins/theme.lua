@@ -1,10 +1,17 @@
+local transparent = true
+
 return {
 	{
 		"EdenEast/nightfox.nvim",
 		config = function()
 			require("nightfox").setup({
 				options = {
-					transparent = true,
+					transparent = transparent,
+				},
+				groups = {
+					all = {
+						NormalFloat = { fg = "fg1", bg = transparent and "NONE" or "bg0" },
+					},
 				},
 			})
 			vim.cmd([[colorscheme terafox]])

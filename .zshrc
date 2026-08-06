@@ -12,6 +12,7 @@ alias vim=nvim
 alias c=clear
 alias j=z
 alias config="/opt/homebrew/bin/git --git-dir $HOME/dotfiles --work-tree=$HOME"
+alias lgc="lazygit --git-dir=$HOME/dotfiles --work-tree=$HOME"
 alias sshc="ssh -p 22 root@47.96.123.255"
 alias hd="hugo server -D"
 alias sc="source ~/.zshrc"

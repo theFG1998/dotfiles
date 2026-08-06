@@ -21,6 +21,41 @@ local diagnostic_picker = {
   },
 }
 
+local project_markers = {
+  ".git",
+  "package.json",
+  "pyproject.toml",
+  "uv.lock",
+  "go.mod",
+  "Cargo.toml",
+  "Makefile",
+}
+
+local function project_root()
+  local buf = vim.api.nvim_get_current_buf()
+  local path = vim.api.nvim_buf_get_name(buf)
+
+  if path ~= "" and vim.bo[buf].buftype == "" then
+    local root = vim.fs.root(path, project_markers)
+    if root then
+      return root
+    end
+
+    local lsp_root
+    for _, client in ipairs(vim.lsp.get_clients({ bufnr = buf })) do
+      local client_root = client.config.root_dir
+      if client_root and (not lsp_root or #client_root > #lsp_root) then
+        lsp_root = client_root
+      end
+    end
+    if lsp_root then
+      return lsp_root
+    end
+  end
+
+  return vim.fn.getcwd(0)
+end
+
 return {
   {
     "folke/snacks.nvim",
@@ -65,10 +100,17 @@ return {
       { "<leader>su",      function() Snacks.picker.undo() end,             desc = "Undo History" },
       { "<leader>sm",      function() Snacks.picker.marks() end,            desc = "Marks" },
       { "<leader>si",      function() Snacks.picker.icons() end,            desc = "Icons" },
+      { "<leader>sb",      function() Snacks.picker.buffers() end,          desc = "Buffers" },
       { "<leader>sd",      function() Snacks.picker.diagnostics() end,      desc = "Diagnostics" },
       { "<leader>sD",      function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
       { "<leader>cR",      function() Snacks.rename.rename_file() end,      desc = "Rename File" },
-      { "<c-/>",           function() Snacks.terminal() end,                desc = "Toggle Terminal" },
+      {
+        "<c-/>",
+        function()
+          Snacks.terminal(nil, { cwd = project_root() })
+        end,
+        desc = "Toggle Project Terminal",
+      },
       { "]]",              function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference",       mode = { "n", "t" } },
       { "[[",              function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference",       mode = { "n", "t" } },
       { "<leader>.",       function() Snacks.scratch() end,                 desc = "Toggle Scratch Buffer" },

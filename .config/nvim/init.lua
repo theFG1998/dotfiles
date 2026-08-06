@@ -12,3 +12,4 @@ require('vim._core.ui2').enable({
 require('basic_stuff')
 require("config.lazy")
 require('lsp')
+require("stdlib_guard").setup()

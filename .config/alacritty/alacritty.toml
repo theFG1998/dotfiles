@@ -25,11 +25,6 @@ action = "CreateNewWindow"
 key = "N"
 mods = "Command"
 
-[[keyboard.bindings]]
-action = "ToggleFullscreen"
-key = "Return"
-mods = "Command|Shift"
-
 [window]
 decorations = "buttonless"
 dynamic_padding = false

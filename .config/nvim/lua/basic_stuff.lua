@@ -51,7 +51,7 @@ function CompileAndRun()
 	elseif ft == "python" then
 		cmd = { "python3", file }
 	elseif ft == "go" then
-		cmd = string.format('go build -o "%s" && "%s"', file_no_ext, file_no_ext)
+		cmd = string.format('go run .')
 	else
 		vim.notify("No run command for filetype: " .. ft, vim.log.levels.WARN)
 		return
@@ -119,9 +119,50 @@ local function back_last_cursor_position()
 	})
 end
 
+local function highlight_on_yank()
+	vim.api.nvim_create_autocmd("TextYankPost", {
+		group = augroup,
+		desc = "Highlight yanked text",
+		callback = function()
+			vim.hl.on_yank({
+				higroup = "IncSearch",
+				timeout = 200,
+			})
+		end,
+	})
+end
+
+local function persist_folds()
+	local function is_file_buffer(buf)
+		return vim.bo[buf].buftype == "" and vim.api.nvim_buf_get_name(buf) ~= ""
+	end
+
+	vim.api.nvim_create_autocmd("BufWinLeave", {
+		group = augroup,
+		desc = "Save folds for file buffers",
+		callback = function(args)
+			if is_file_buffer(args.buf) then
+				pcall(function()
+					vim.cmd("mkview")
+				end)
+			end
+		end,
+	})
+
+	vim.api.nvim_create_autocmd("BufWinEnter", {
+		group = augroup,
+		desc = "Restore folds for file buffers",
+		callback = function(args)
+			if is_file_buffer(args.buf) then
+				pcall(function()
+					vim.cmd("loadview")
+				end)
+			end
+		end,
+	})
+end
+
 local function set_keymap()
-	-- Terminals encode Esc and Ctrl-[ identically; let terminal UIs receive Esc.
-	pcall(vim.keymap.del, "t", "<C-[>")
 	keyset("n", "<leader><cr>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlights" })
 	keyset("n", "S", "<cmd>w<CR>", { desc = "Save file" })
 	keyset("n", "Q", "<cmd>q<CR>", { desc = "Quit" })
@@ -131,6 +172,7 @@ local function set_keymap()
 	keyset({ "n", "x" }, "L", "8l", { desc = "Move right 8 chars" })
 	keyset("n", "bn", "<cmd>bn<cr>", { desc = "Next buffer" })
 	keyset("n", "bp", "<cmd>bp<cr>", { desc = "Previous buffer" })
+	keyset("x", "p", "P", { desc = "Paste without replacing the register" })
 	keyset("n", "r", CompileAndRun, { desc = "Compile and run current file" })
 	vim.api.nvim_create_user_command("Cmt", Cmt, { nargs = 1 })
 end
@@ -140,3 +182,5 @@ set_option()
 sync_alac_bg()
 set_keymap()
 back_last_cursor_position()
+highlight_on_yank()
+persist_folds()

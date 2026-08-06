@@ -15,6 +15,9 @@ return {
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
+    -- Keep Neovim's built-in <C-\><C-n> terminal escape sequence intact.
+    term = { enabled = false },
+
     -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
     -- 'super-tab' for mappings similar to vscode (tab to accept)
     -- 'enter' for enter to accept

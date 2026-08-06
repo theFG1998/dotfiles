@@ -34,7 +34,7 @@ return {
 
 				c = { "clang-format" },
 				cpp = { "clang-format" },
-				python = { "ruff_format" },
+				python = { "ruff_fix", "ruff_format" },
 				lua = { "stylua" },
 
 				sh = { "shfmt" },

@@ -18,6 +18,51 @@ vim.lsp.config("lua_ls", {
 	},
 })
 
+-- uv 默认把项目依赖安装到根目录下的 .venv。显式告诉 Pyright 使用该
+-- 解释器，避免 Neovim 从未激活虚拟环境的 shell 启动时误报 import。
+vim.lsp.config("pyright", {
+	before_init = function(_, config)
+		if not config.root_dir then
+			return
+		end
+
+		local python = vim.fs.joinpath(config.root_dir, ".venv", "bin", "python")
+		if vim.fn.executable(python) == 1 then
+			config.settings = config.settings or {}
+			config.settings.python = vim.tbl_deep_extend("force", config.settings.python or {}, {
+				pythonPath = python,
+			})
+		end
+	end,
+})
+
+local vue_language_server_path = vim.fn.stdpath("data")
+	.. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
+
+vim.lsp.config("vtsls", {
+	settings = {
+		vtsls = {
+			tsserver = {
+				globalPlugins = {
+					{
+						name = "@vue/typescript-plugin",
+						location = vue_language_server_path,
+						languages = { "vue" },
+						configNamespace = "typescript",
+					},
+				},
+			},
+		},
+	},
+	filetypes = {
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact",
+		"vue",
+	},
+})
+
 vim.lsp.enable({
 	"gopls",
 	"vtsls",
