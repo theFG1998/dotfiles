@@ -24,6 +24,7 @@ alias gm="git commit"
 alias gs="git status"
 alias gw="git switch"
 alias lg="lazygit"
+alias tmux='tmux attach || tmux new'
 
 # customize filetype colors using LS_COLORS
 source "$HOME/Scripts/lscolor.sh"

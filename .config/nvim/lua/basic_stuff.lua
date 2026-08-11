@@ -14,7 +14,7 @@ local function set_option()
 	opt.tabstop = 2
 	opt.expandtab = true
 	opt.number = true
-	opt.relativenumber = true
+	opt.relativenumber = false
 	opt.scrolloff = 5
 	opt.clipboard:append("unnamedplus")
 	opt.ignorecase = true
@@ -174,6 +174,9 @@ local function set_keymap()
 	keyset("n", "bp", "<cmd>bp<cr>", { desc = "Previous buffer" })
 	keyset("x", "p", "P", { desc = "Paste without replacing the register" })
 	keyset("n", "r", CompileAndRun, { desc = "Compile and run current file" })
+	keyset("n", "gx", function()
+		vim.ui.open(vim.fn.expand("<cfile>"))
+	end, { desc = "Open URL under cursor" })
 	vim.api.nvim_create_user_command("Cmt", Cmt, { nargs = 1 })
 end
 

@@ -21,17 +21,18 @@ yabai -m rule --add app="WeChat" manage=off sticky=on
 yabai -m rule --add app="0dcloud" manage=off
 
 # ==================================================
-# Spaces: ensure 3 exist, then label them
-#   1 web | 2 dev | 3 chat
+# Spaces: ensure 4 exist, then label them
+#   1 web | 2 dev | 3 chat | 4 design
 # ==================================================
 
-while [ "$(yabai -m query --spaces | jq 'length')" -lt 3 ]; do
+while [ "$(yabai -m query --spaces | jq 'length')" -lt 4 ]; do
   yabai -m space --create
 done
 
 yabai -m space 1 --label web
 yabai -m space 2 --label dev
 yabai -m space 3 --label chat
+yabai -m space 4 --label design
 
 # ==================================================
 # App -> space rules
@@ -40,3 +41,4 @@ yabai -m space 3 --label chat
 yabai -m rule --add app="^(Safari|Firefox|Microsoft Edge|Helium)$" space=^web
 yabai -m rule --add app="^(Alacritty|kitty|iTerm2|Terminal)$" space=^dev
 yabai -m rule --add app="^(Kimi|ChatGPT)$" space=^chat
+yabai -m rule --add app="^Open Design$" space=^design
