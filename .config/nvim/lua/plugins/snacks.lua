@@ -56,6 +56,10 @@ local function project_root()
   return vim.fn.getcwd(0)
 end
 
+local function toggle_project_terminal()
+  Snacks.terminal(nil, { cwd = project_root() })
+end
+
 return {
   {
     "folke/snacks.nvim",
@@ -106,10 +110,14 @@ return {
       { "<leader>cR",      function() Snacks.rename.rename_file() end,      desc = "Rename File" },
       {
         "<c-/>",
-        function()
-          Snacks.terminal(nil, { cwd = project_root() })
-        end,
+        toggle_project_terminal,
         desc = "Toggle Project Terminal",
+      },
+      {
+        -- tmux may encode Ctrl-/ as the legacy Ctrl-_ control character.
+        "<c-_>",
+        toggle_project_terminal,
+        desc = "which_key_ignore",
       },
       { "]]",              function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference",       mode = { "n", "t" } },
       { "[[",              function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference",       mode = { "n", "t" } },

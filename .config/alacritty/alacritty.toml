@@ -25,6 +25,13 @@ action = "CreateNewWindow"
 key = "N"
 mods = "Command"
 
+# macOS reports Ctrl-/ as a plain slash. Encode it as the legacy Ctrl-_
+# control character so tmux and Neovim can distinguish it from `/`.
+[[keyboard.bindings]]
+key = "/"
+mods = "Control"
+chars = "\u001F"
+
 [window]
 decorations = "buttonless"
 dynamic_padding = false
