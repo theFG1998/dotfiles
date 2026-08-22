@@ -45,7 +45,7 @@ alt - b : yabai -m space --balance
 alt - 1 : yabai -m space --focus web
 alt - 2 : yabai -m space --focus dev
 alt - 3 : yabai -m space --focus chat
-alt - 4 : yabai -m space --focus design
+alt - 4 : yabai -m space --focus trade
 
 
 # ==================================================
@@ -56,7 +56,7 @@ alt - 4 : yabai -m space --focus design
 ctrl + shift + alt - 1 : yabai -m window --space web
 ctrl + shift + alt - 2 : yabai -m window --space dev
 ctrl + shift + alt - 3 : yabai -m window --space chat
-ctrl + shift + alt - 4 : yabai -m window --space design
+ctrl + shift + alt - 4 : yabai -m window --space trade
 
 # ==================================================
 # Resize windows

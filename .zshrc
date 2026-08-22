@@ -25,6 +25,8 @@ alias gs="git status"
 alias gw="git switch"
 alias lg="lazygit"
 alias tx='tmux attach || tmux new'
+alias tn='tmux new -s'
+alias mb='musicbox'
 
 # customize filetype colors using LS_COLORS
 source "$HOME/Scripts/lscolor.sh"
@@ -76,6 +78,12 @@ export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 
 export GOPROXY=https://goproxy.cn,direct
 export GOSUMDB=sum.golang.org
+
+# Alacritty only applies cursor.style at startup. tmux/nvim change it with
+# DECSCUSR and do not put it back. CSI 0 q restores the configured style
+# (Beam + blink). precmd covers leaving tmux, nvim, less, etc.
+_restore_cursor() { printf '\e[0 q'; }
+precmd_functions+=(_restore_cursor)
 
 # yazi
 function y() {

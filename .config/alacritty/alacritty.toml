@@ -35,7 +35,7 @@ chars = "\u001F"
 [window]
 decorations = "buttonless"
 dynamic_padding = false
-opacity = 0.9
+opacity = 0.8
 option_as_alt = "Both"
 title = "Alacritty"
 
